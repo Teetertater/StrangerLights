@@ -1,4 +1,4 @@
-####StrangerLights
+#StrangerLights
 Contents:
 
 -Android App
