@@ -12,6 +12,8 @@ Contents:
 
 This is a project inspired by the show 'Stranger Things,' in which lightbulbs are activated by the nearby presence of certain characters. This project implements Android location tracking to accomplish proximity-triggered light toggling, by wirelessly transmitting the user's location in realtime to the connected lightswitches.
 
+![alt tag](https://raw.githubusercontent.com/Teetertater/StrangerLights/master/Light_On.jpg)
+
 ##Overview
 
 The primary component is the Android device. With 750ms updates, it publishes the user's lat/lon coordinates to PubNub. This location data is then received by a python script, which checks the Vincenty distance of the user's location against that of predefined lights. If the user is within a threshold boundary, the script sends information of the light and required state to an Arduino Uno connected over serial.
