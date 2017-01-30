@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="pubnub-gson-4.4.1-all">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/pubnub-gson-4.4.1-all.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
