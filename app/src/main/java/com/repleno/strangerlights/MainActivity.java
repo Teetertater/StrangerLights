@@ -1,19 +1,19 @@
 package com.repleno.strangerlights;
+
+import android.content.res.ColorStateList;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -26,8 +26,17 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
+import com.pubnub.api.PubNub;
+import com.pubnub.api.callbacks.SubscribeCallback;
+import com.pubnub.api.models.consumer.PNStatus;
+import com.pubnub.api.models.consumer.pubsub.PNMessageResult;
+import com.pubnub.api.models.consumer.pubsub.PNPresenceEventResult;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+
+import static android.graphics.Color.BLUE;
+import static android.graphics.Color.YELLOW;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.ConnectionCallbacks,
@@ -38,6 +47,13 @@ public class MainActivity extends AppCompatActivity
     public static final String TAG = MainActivity.class.getSimpleName();
     private LocationRequest mLocationRequest;
     private Location currentLocation;
+    private FloatingActionButton light0Btn;
+    private FloatingActionButton light1Btn;
+    private FloatingActionButton light2Btn;
+
+    private ColorStateList light0Colour = (ColorStateList.valueOf(BLUE));
+    private ColorStateList light1Colour = (ColorStateList.valueOf(BLUE));
+    private ColorStateList light2Colour = (ColorStateList.valueOf(BLUE));
 
     private int buttonState = 0;
 
@@ -56,12 +72,16 @@ public class MainActivity extends AppCompatActivity
                 locations.clear();
                 TextView tv = (TextView) findViewById(R.id.textView2);
                 tv.setText("Reset");
+                light0Btn.setBackgroundTintList(light0Colour);
+                light1Btn.setBackgroundTintList(light1Colour);
+                light2Btn.setBackgroundTintList(light2Colour);
             }
         });
 
         final Button button = (Button) findViewById(R.id.toggle_btn);
         View.OnClickListener myOCL = new View.OnClickListener(){
             public void onClick(View v) {
+                parseMessage();
                 handleNewLocation(currentLocation);
                 buttonState++;
                 switch (buttonState % 3){
@@ -78,6 +98,9 @@ public class MainActivity extends AppCompatActivity
                         button.setText("LIGHTS ON");
                         break;
                 }
+                light0Btn.setBackgroundTintList(light0Colour);
+                light1Btn.setBackgroundTintList(light1Colour);
+                light2Btn.setBackgroundTintList(light2Colour);
             }
         };
         button.setOnClickListener(myOCL);
@@ -95,6 +118,9 @@ public class MainActivity extends AppCompatActivity
                 .setInterval(1000)        // 5 seconds, in milliseconds
                 .setFastestInterval(750); // 1 second, in milliseconds
 
+        light0Btn = (FloatingActionButton) findViewById(R.id.light0Btn);
+        light1Btn = (FloatingActionButton) findViewById(R.id.light1Btn);
+        light2Btn = (FloatingActionButton) findViewById(R.id.light2Btn);
     }
 
     @Override
@@ -134,9 +160,58 @@ public class MainActivity extends AppCompatActivity
             locations.remove(locations.size()-1);
         this.currentLocation = location;
         TaskManager.getInstance().publishLocation(newLatLng);
-
         TextView tv = (TextView)findViewById(R.id.textView2);
         tv.setText(locations.toString().replaceAll("lat/lng:", ""));
+    }
+
+    public class PubSubPnCallback extends SubscribeCallback {
+        @Override
+        public void status(PubNub pubnub, PNStatus status) {
+            // status handling
+        }
+        @Override
+        public void message(PubNub pubnub, PNMessageResult message) {
+            String incomingMsg = message.getMessage().getAsString();
+            ColorStateList lightBtn;
+            System.out.println(incomingMsg);
+            if (incomingMsg.charAt(1) == '1'){
+                switch (incomingMsg.charAt(0)){
+                    case 2:
+                        light2Colour = (ColorStateList.valueOf(YELLOW));
+                        break;
+                    case 1:
+                        light1Colour = (ColorStateList.valueOf(YELLOW));
+                        break;
+                    default:
+                        light0Colour = (ColorStateList.valueOf(YELLOW));
+                        break;
+                }
+            }
+            else if (incomingMsg.charAt(1) == '0'){
+                switch (incomingMsg.charAt(0)){
+                    case 2:
+                        light2Colour = (ColorStateList.valueOf(BLUE));
+                        break;
+                    case 1:
+                        light1Colour = (ColorStateList.valueOf(BLUE));
+                        break;
+                    default:
+                        light0Colour = (ColorStateList.valueOf(BLUE));
+                        break;
+                }
+            }
+        }
+        @Override
+        public void presence(PubNub pubnub, PNPresenceEventResult presence) {
+            // presence handling
+        }
+    }
+
+    public void parseMessage(){
+        TaskManager.getInstance().getPubnub().addListener(new PubSubPnCallback());
+        ArrayList<String> aL = new ArrayList();
+        aL.add("light_state");
+        TaskManager.getInstance().getPubnub().subscribe().channels(aL).withPresence().execute();
     }
 
     @Override

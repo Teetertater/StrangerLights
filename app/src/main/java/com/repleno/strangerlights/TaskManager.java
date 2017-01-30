@@ -1,14 +1,11 @@
 package com.repleno.strangerlights;
-import android.location.Location;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.pubnub.api.*;
+import com.pubnub.api.PNConfiguration;
+import com.pubnub.api.PubNub;
 import com.pubnub.api.callbacks.PNCallback;
 import com.pubnub.api.models.consumer.PNPublishResult;
 import com.pubnub.api.models.consumer.PNStatus;
-import org.json.*;
-
-import java.util.Arrays;
 
 public class TaskManager {
     private static TaskManager instance = null;
@@ -17,8 +14,8 @@ public class TaskManager {
     public String lightUpdate = "Auto";
 
     protected TaskManager(){
-        pnC.setSubscribeKey("MY_SUB_KEY");
-        pnC.setPublishKey("MY PUB KEY");
+        pnC.setSubscribeKey("SUB_KEY");
+        pnC.setPublishKey("PUB_KEY");
         pubnub = new PubNub(pnC);
     }
 
@@ -31,7 +28,7 @@ public class TaskManager {
 
     public void publishLocation(LatLng coord){
         String newMsg;
-        if (lightUpdate != "Auto")
+        if (lightUpdate.equals("Auto"))
             newMsg = lightUpdate;
         else
             newMsg = coord.toString();
@@ -44,12 +41,15 @@ public class TaskManager {
                     @Override
                     public void onResponse(PNPublishResult result, PNStatus status) {
                         if (status.isError()) {
-                            // something bad happened.
                             System.out.println("error happened while publishing: " + status.toString());
                         } else {
                             System.out.println("publish worked! timetoken: " + result.getTimetoken());
                         }
                     }
                 });
+    }
+
+    public PubNub getPubnub(){
+        return this.pubnub;
     }
 }
