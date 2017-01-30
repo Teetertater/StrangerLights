@@ -26,44 +26,46 @@
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        app:fabSize="mini"
-        app:srcCompat="@drawable/quantum_ic_play_circle_filled_white_36"
-        android:layout_marginBottom="63dp"
+        android:clickable="false"
+        app:srcCompat="?android:attr/listChoiceIndicatorSingle"
+        android:id="@+id/light0Btn"
+        android:layout_alignTop="@+id/light1Btn"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="21dp"
+        app:fabSize="mini" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        app:srcCompat="?android:attr/listChoiceIndicatorSingle"
+        android:id="@+id/light1Btn"
+        android:layout_alignTop="@+id/light2Btn"
+        android:layout_toEndOf="@+id/light0Btn"
+        android:layout_marginStart="21dp"
+        app:fabSize="mini" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        app:srcCompat="?android:attr/listChoiceIndicatorSingle"
+        android:layout_marginBottom="59dp"
         android:id="@+id/light2Btn"
         android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/toggle_btn" />
+        android:layout_centerHorizontal="true"
+        app:fabSize="mini" />
 
     <Button
         android:text="Proximity Lights"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="133dp"
+        android:layout_marginBottom="10dp"
         android:id="@+id/toggle_btn"
         style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
         android:backgroundTint="@color/cast_intro_overlay_button_background_color"
         android:onClick="onToggleBtnPressed"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        app:fabSize="mini"
-        app:srcCompat="@drawable/quantum_ic_play_circle_filled_white_36"
-        android:layout_alignTop="@+id/light1Btn"
-        android:layout_alignStart="@+id/toggle_btn"
-        android:id="@+id/light0Btn" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        app:fabSize="mini"
-        app:srcCompat="@drawable/quantum_ic_play_circle_filled_white_36"
-        android:id="@+id/light1Btn"
-        android:layout_alignTop="@+id/light2Btn"
+        android:layout_above="@+id/light1Btn"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

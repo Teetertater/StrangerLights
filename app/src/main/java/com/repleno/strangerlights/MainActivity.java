@@ -35,7 +35,7 @@ import com.pubnub.api.models.consumer.pubsub.PNPresenceEventResult;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import static android.graphics.Color.BLUE;
+import static android.graphics.Color.CYAN;
 import static android.graphics.Color.YELLOW;
 
 public class MainActivity extends AppCompatActivity
@@ -51,9 +51,11 @@ public class MainActivity extends AppCompatActivity
     private FloatingActionButton light1Btn;
     private FloatingActionButton light2Btn;
 
-    private ColorStateList light0Colour = (ColorStateList.valueOf(BLUE));
-    private ColorStateList light1Colour = (ColorStateList.valueOf(BLUE));
-    private ColorStateList light2Colour = (ColorStateList.valueOf(BLUE));
+    private int lightColourOff = CYAN;
+    private int lightColourON = YELLOW;
+    private ColorStateList light0Colour = (ColorStateList.valueOf(lightColourOff));
+    private ColorStateList light1Colour = (ColorStateList.valueOf(lightColourOff));
+    private ColorStateList light2Colour = (ColorStateList.valueOf(lightColourOff));
 
     private int buttonState = 0;
 
@@ -177,26 +179,26 @@ public class MainActivity extends AppCompatActivity
             if (incomingMsg.charAt(1) == '1'){
                 switch (incomingMsg.charAt(0)){
                     case 2:
-                        light2Colour = (ColorStateList.valueOf(YELLOW));
+                        light2Colour = (ColorStateList.valueOf(lightColourON));
                         break;
                     case 1:
-                        light1Colour = (ColorStateList.valueOf(YELLOW));
+                        light1Colour = (ColorStateList.valueOf(lightColourON));
                         break;
                     default:
-                        light0Colour = (ColorStateList.valueOf(YELLOW));
+                        light0Colour = (ColorStateList.valueOf(lightColourON));
                         break;
                 }
             }
             else if (incomingMsg.charAt(1) == '0'){
                 switch (incomingMsg.charAt(0)){
                     case 2:
-                        light2Colour = (ColorStateList.valueOf(BLUE));
+                        light2Colour = (ColorStateList.valueOf(lightColourOff));
                         break;
                     case 1:
-                        light1Colour = (ColorStateList.valueOf(BLUE));
+                        light1Colour = (ColorStateList.valueOf(lightColourOff));
                         break;
                     default:
-                        light0Colour = (ColorStateList.valueOf(BLUE));
+                        light0Colour = (ColorStateList.valueOf(lightColourOff));
                         break;
                 }
             }
