@@ -1,18 +1,16 @@
 #StrangerLights
 Contents:
 
--Android App
-
--Python Script
-
--Arduino Uno with relays
+*Android App
+*Python Script
+*Arduino Uno with relays
 
 
 ##Introduction
 
 This is a project inspired by the show 'Stranger Things,' in which lightbulbs are activated by the nearby presence of certain characters. This project implements Android location tracking to accomplish proximity-triggered light toggling, by wirelessly transmitting the user's location in realtime to the connected lightswitches.
 
-![Light turned on](https://github.com/Teetertater/StrangerLights/blob/master/Light_On.JPG)
+![Light turned on](https://github.com/Teetertater/StrangerLights/blob/master/Light_On.JPG | Width = 100)
 
 ##Overview
 
