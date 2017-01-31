@@ -1,10 +1,4 @@
 #StrangerLights
-#####Contents:
-
-* Android App
-* Python Script
-* Arduino Uno with relays
-
 
 ##Introduction
 
@@ -22,15 +16,17 @@ Upon activation of the lights, the python script publishes their state to anothe
 
 ##Build Instructions
 
-##### Default
+#####Repository Contents:
+* Android App
+* Python Script
+* Arduino Uno with relays
 
-To build the app, download and compile the android component, or simply use the apk file I have provided (
-\app\build\outputs\apk\apk-debug.apk). This will grant you the ability to control the lights at my house!
+##### Demo Build:
+
+To build the app, download and compile the android component, or simply use the apk file I have provided (apk-debug.apk in master). This will grant you the ability to control the lights at my house!
 The python script must be running at the time at my end, however.
 
-##### Custom
-
-To configure your own lights:
+##### Custom Build (To configure your own lights):
 
 Run the python script, installing corresponding dependencies as needed (struct, pyserial, geopy, pubnub). 
 You can modify the predefined light coordinates at the top of the script to the location of your own. You will also need to update the serial port to the one corresponding to your Arduino connection. Lastly, upload the Arduino .ino file to the Arduino, and connect the activation pin of up to 3 relays for lights in order (0,1,2) to pins (2,3,4) respectively.
