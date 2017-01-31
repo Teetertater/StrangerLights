@@ -11,6 +11,7 @@ Contents:
 This is a project inspired by the show 'Stranger Things,' in which lightbulbs are activated by the nearby presence of certain characters. This project implements Android location tracking to accomplish proximity-triggered light toggling, by wirelessly transmitting the user's location in realtime to the connected lightswitches.
 
 <img src="https://github.com/Teetertater/StrangerLights/blob/master/Light_On.JPG" height="216" width="225">
+<img src="https://github.com/Teetertater/StrangerLights/blob/master/Light_Off.JPG" height="216" width="225">
 
 ##Overview
 
