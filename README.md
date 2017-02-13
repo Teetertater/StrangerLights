@@ -2,7 +2,7 @@
 
 ##Introduction
 
-This is a project inspired by the show 'Stranger Things,' in which lightbulbs are activated by the nearby presence of certain characters. This project implements Android location tracking to accomplish proximity-triggered light toggling, by wirelessly transmitting the user's location in realtime to the connected lightswitches. This project is made for the PubNub interview process, and accordingly implements PubNub's publish/subscribe architecture.
+This is a project inspired by the show 'Stranger Things,' in which lightbulbs are activated by the nearby presence of certain characters. This project implements Android location tracking to accomplish proximity-triggered light toggling, by wirelessly transmitting the user's location in realtime to the connected lightswitches. 
 
 <img src="https://github.com/Teetertater/StrangerLights/blob/master/Light_On.JPG" height="216" width="225">
 <img src="https://github.com/Teetertater/StrangerLights/blob/master/Light_Off.JPG" height="216" width="225">
@@ -45,7 +45,7 @@ Once the app is started, it will show a stream of coordinates as the user's loca
 
 ##Design Choices
 
-Instead of checking the distance between the user and the lights in the python script, I could have implemented geofencing on the Android device; simply sending the activation instructions over PubNub. However, I wanted to test the capabilities of PubNub with a realtime stream of constantly-updating data (and it worked). The lights at the bottom take a few seconds to update to reflect the state that the user sets-- this is because the changes are only reflected when they are made in the python script, and published back to the android device. This way, the user is notified of the update only when it has gone through. 
+Instead of checking the distance between the user and the lights in the python script, I could have implemented geofencing on the Android device; simply sending the activation instructions over PubNub. However, I wanted to test the capabilities of PubNub with a realtime stream of constantly-updating data (and it worked). The lights at the bottom take a few seconds to update to reflect the state that the user sets-- this is because the changes are only reflected when they are made in the python script, and published back to the android device. This way, the user is notified of the update only when it has gone through. Lastly, indoor location sensing is very fickle, and if I had more time I would look into location beacons or something similar to get a more precise reading.
 
 ##Future extensions
 
